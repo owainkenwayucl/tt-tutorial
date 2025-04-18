@@ -17,12 +17,12 @@ Details about how to access your account on the RISC-V testbed and set up the en
 
 Irrespective of the machine you are using, it is assumed that you have a command line terminal in the _tt-tutorial/practical/one/exercise_ directory.
 
-Once you go into this directory, type `make` and run the resulting _ex_two_ executable
+Once you go into this directory, type `make` and run the resulting _ex_one_ executable
 
 
 ```bash
 user@login01:~$ make
-user@login01:~$ ./ex_two
+user@login01:~$ ./ex_one
 Failure on the device, 100 fails with 100 elements
 ```
 
@@ -30,7 +30,7 @@ As you can see, the host (and device) code builds, but when it launches it is no
 
 ## Host side updates
 
-The host side of the code, in the _ex_two.cpp_ file is fairly complete, but there have been a few omissions that need addressing. Before we do so, it's worth highlighting the different parts of the code to provide a picture of what is doing what here.
+The host side of the code, in the _ex_one.cpp_ file is fairly complete, but there have been a few omissions that need addressing. Before we do so, it's worth highlighting the different parts of the code to provide a picture of what is doing what here.
 
 Between lines 21 and 40 we are allocating data buffers on the device, the first set of buffers in the DRAM memory and the second in the L1 SRAM within the specific Tensix core that we are using. All memory is initialised from a configuration, and _InterleavedBufferConfig_ is the the most common approach to use here, in this first configuration we define the overall size, the size of each page (to keep it simple we set this to be the overall size so only have one page) and the type of the buffer. Memory is then created via the `CreateBuffer` API call. The second configuration is very similar, but the flag `BufferType::L1` directs this to be allocted in the Tensix's L1 memory. We need two local areas of memory to read data into from DDR and then operate upon (we will see this in the device code a little later on).
 
@@ -141,6 +141,6 @@ This device code is fairly complete, but there is a missing part that needs prov
 Once you have made these changes, and already rebuilt the host executable via `make`, then you can simply rerun and it should execute correctly this time:
 
 ```bash
-user@login01:~$ ./ex_two
+user@login01:~$ ./ex_one
 Completed successfully on the device, with 100 elements
 ```
