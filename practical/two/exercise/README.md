@@ -15,7 +15,7 @@ Learning objectives are:
 
 ## Getting started
 
-Details about how to access your account on the RISC-V testbed and set up the environment that we will need for these practicals can be found on the [TODO](setup.md) page.
+Details about how to access your account on the RISC-V testbed and set up the environment that we will need for these practicals can be found on the [login and access instructions](https://github.com/RISCVtestbed/tt-tutorial/blob/main/practical/general/RV-testbed.md) page.
 
 Irrespective of the machine you are using, it is assumed that you have a command line terminal in the _tt-tutorial/practical/two/exercise_ directory.
 

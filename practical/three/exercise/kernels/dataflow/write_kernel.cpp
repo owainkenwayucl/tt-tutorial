@@ -5,7 +5,7 @@
 void kernel_main() {
     uint32_t dst_addr = get_arg_val<uint32_t>(0);
     uint32_t data_size = get_arg_val<uint32_t>(1);
-    uint32_t chunk_size = get_arg_val<uint32_t>(2);
+    // TODO: Define the variable chunk_size as argument index 2   
 
     // Get destination DRAM NoC address for writing
     uint64_t dst_noc_addr = get_noc_addr_from_bank_id<true>(0, dst_addr);
@@ -23,8 +23,10 @@ void kernel_main() {
         cb_wait_front(cb_id_out0, 1);
         // Now we have the page grab the read address of this
         uint32_t l1_read_addr = get_read_ptr(cb_id_out0);
-        // Write the recieved data to DDR
-        noc_async_write(l1_read_addr, dst_noc_addr+(i*bytes_per_chunk), bytes_per_chunk);
+        // TODO: Write the recieved data to DDR, we need to offset this index by the current
+        // chunk, this is done by adding (i*bytes_per_chunk) to the first argument in the 
+        // API call below
+        noc_async_write(l1_read_addr, dst_noc_addr, bytes_per_chunk);
         noc_async_write_barrier();
         // Pop the page to make it available for writing again
         cb_pop_front(cb_id_out0, 1);

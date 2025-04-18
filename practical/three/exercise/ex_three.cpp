@@ -75,7 +75,7 @@ int main(int argc, char** argv) {
          l1_buffer_1->address(),
          l1_buffer_2->address(),
          DATA_SIZE,
-         CHUNK_SIZE});
+         /* TODO: Add CHUNK_SIZE as an addition argument */});
 
     // Specify data movement kernel for launching on last RISC-V baby core
     KernelHandle writer_kernel_id = CreateKernel(
@@ -91,7 +91,7 @@ int main(int argc, char** argv) {
         core,
         {dst_dram_buffer->address(),
          DATA_SIZE,
-         CHUNK_SIZE});
+         /* TODO: Add CHUNK_SIZE as an addition argument */});
 
     // Enqueue the program to run on the device, false means will not block    
     EnqueueProgram(cq, program, false);

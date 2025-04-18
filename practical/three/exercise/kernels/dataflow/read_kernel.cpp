@@ -9,7 +9,7 @@ void kernel_main() {
     uint32_t buffer_1_addr = get_arg_val<uint32_t>(2);
     uint32_t buffer_2_addr = get_arg_val<uint32_t>(3);
     uint32_t data_size = get_arg_val<uint32_t>(4);
-    uint32_t chunk_size = get_arg_val<uint32_t>(5);
+    // TODO: Define the variable chunk_size as argument index 5    
 
     // NoC coords (x,y) depending on DRAM location on-chip
     uint64_t src0_dram_noc_addr = get_noc_addr_from_bank_id<true>(0, src0_dram);
@@ -29,8 +29,10 @@ void kernel_main() {
     // Proceed through each chunk, each of these is known as a tile
     for (uint32_t i=0;i<num_chunks;i++) {
         // Read data from DRAM into L1 buffers
-        noc_async_read(src0_dram_noc_addr+(i*bytes_per_chunk), buffer_1_addr, bytes_per_chunk);
-        noc_async_read(src1_dram_noc_addr+(i*bytes_per_chunk), buffer_2_addr, bytes_per_chunk);
+        // TODO: Offset the DRAM reading index based upon the current chunk, this is by adding
+        // (i*bytes_per_chunk) to first argument in the next two calls
+        noc_async_read(src0_dram_noc_addr, buffer_1_addr, bytes_per_chunk);
+        noc_async_read(src1_dram_noc_addr, buffer_2_addr, bytes_per_chunk);
         noc_async_read_barrier();
 
         // Reserve a single page in the CB
