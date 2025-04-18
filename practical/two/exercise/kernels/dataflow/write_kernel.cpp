@@ -15,14 +15,21 @@ void kernel_main() {
     // Bytes that are written to DDR for the data
     uint32_t bytes_data_size=DATA_TYPE_BYTES * data_size;
 
-    // Wait for a page to be made available in the CB
-    cb_wait_front(cb_id_out0, 1);
+    // TODO: Wait for a page to be made available in the CB, you do this
+    // via the cb_wait_front API call, with the CB identifier, cb_id_out0, 
+    // as the first argument and 1 as the second argument (as we are waiting
+    // on one page being made available).
+
     // Now we have the page grab the read address of this
     uint32_t l1_read_addr = get_read_ptr(cb_id_out0);
+    
     // Write the recieved data to DDR
     noc_async_write(l1_read_addr, dst_noc_addr, bytes_data_size);
     noc_async_write_barrier();
-    // Pop the page to make it available for writing again
-    cb_pop_front(cb_id_out0, 1);
+
+    // TODO: Pop the page to make it available for writing again, you do thi
+    // via the cb_pop_front API call, with the CB identifier, cb_id_out0,
+    // as the first argument and 1 as the second argument (as we are releasing
+    // one page).
 }
 

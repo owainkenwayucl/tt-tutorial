@@ -29,8 +29,11 @@ void kernel_main() {
     noc_async_read(src1_dram_noc_addr, buffer_2_addr, bytes_data_size);
     noc_async_read_barrier();
 
-    // Reserve a single page in the CB
-    cb_reserve_back(cb_id_in0, 1);
+    // TODO: Reserve a single page in the CB that we can use, you do this
+    // via the cb_reserve_back API call, with the CB identified, cb_id_in0,
+    // being the first argument and the second argument being 1 (as
+    // we are reserving just one page).
+
     // Now we have the page grab the write pointer to this
     uint32_t l1_write_addr_in0 = get_write_ptr(cb_id_in0);
     uint32_t* result_data = (uint32_t*)l1_write_addr_in0;
@@ -39,7 +42,9 @@ void kernel_main() {
         result_data[i] = buffer_1[i] + buffer_2[i];
     }
 
-    // Push the page to make it available to consumer of the CB
-    cb_push_back(cb_id_in0, 1);
+    // TODO: Push the page to make it available to consumer of the CB by
+    // the cb_push_back API call, with the CB identified, cb_id_in0,
+    // being the first argument and the second argument being 1 (as
+    // we are just pushing one page).
 }
 

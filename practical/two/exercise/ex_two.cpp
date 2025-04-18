@@ -41,7 +41,9 @@ int main(int argc, char** argv) {
     CircularBufferConfig cb_src0_config =
         CircularBufferConfig(single_tile_size, {{src0_cb_index, tt::DataFormat::UInt32}})
             .set_page_size(src0_cb_index, single_tile_size);
-    CBHandle cb_src0 = tt_metal::CreateCircularBuffer(program, core, cb_src0_config);
+
+    // TODO: create the CircularBuffer via the CreateCircularBuffer API call, with the 
+    // program, core and cb_src0_config provided as arguments
 
     // Allocate input data and fill it with values (each will be added together)
     uint32_t * src0_data=(uint32_t*) malloc(sizeof(uint32_t) * DATA_SIZE);
@@ -75,11 +77,14 @@ int main(int argc, char** argv) {
          DATA_SIZE});
 
     // Specify data movement kernel for launching on last RISC-V baby core
+    // TODO: Replace the empty string with the path of the writer kernel, write_kernel.cpp.
+    // TODO: Complete the data movement config, you can copy the above but replace 0 with 1
+    // i.e. DataMovementProcessor::RISCV_1 and NOC::RISCV_1_default
     KernelHandle writer_kernel_id = CreateKernel(
         program,
-        "kernels/dataflow/write_kernel.cpp",
+        "",
         core,
-        DataMovementConfig{.processor = DataMovementProcessor::RISCV_1, .noc = NOC::RISCV_1_default});
+        DataMovementConfig{ /* TODO */ });
 
     // Configure writer runtime kernel arguments
     SetRuntimeArgs(
