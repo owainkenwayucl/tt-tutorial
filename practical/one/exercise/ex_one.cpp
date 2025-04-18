@@ -91,9 +91,9 @@ int main(int argc, char** argv) {
     CloseDevice(device);
 
     if (number_failures==0) {
-        printf("Completed successfully on the device, for %d elements\n", DATA_SIZE);
+        printf("Completed successfully on the device, with %d elements\n", DATA_SIZE);
     } else {
-        printf("Failure on the device, %d failes for %d elements\n", number_failures, DATA_SIZE);
+        printf("Failure on the device, %d fails with %d elements\n", number_failures, DATA_SIZE);
     }
 }
 
