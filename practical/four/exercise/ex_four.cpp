@@ -33,8 +33,15 @@ int main(int argc, char** argv) {
             .set_page_size(CBIndex::c_0, CHUNK_SIZE);
     tt_metal::CreateCircularBuffer(program, core, cb_src0_config);
 
-    // TODO: Define two more CBs, the same as the first one above with index 1 and 2
-    // and the same size
+    CircularBufferConfig cb_src1_config =
+        CircularBufferConfig(CHUNK_SIZE, {{CBIndex::c_1, tt::DataFormat::UInt32}})
+            .set_page_size(CBIndex::c_1, CHUNK_SIZE);
+    tt_metal::CreateCircularBuffer(program, core, cb_src1_config);
+
+    CircularBufferConfig cb_src2_config =
+        CircularBufferConfig(CHUNK_SIZE, {{CBIndex::c_2, tt::DataFormat::UInt32}})
+            .set_page_size(CBIndex::c_2, CHUNK_SIZE);
+    tt_metal::CreateCircularBuffer(program, core, cb_src2_config);
 
     // Allocate input data and fill it with values (each will be added together)
     uint32_t * src0_data=(uint32_t*) malloc(sizeof(uint32_t) * DATA_SIZE);
