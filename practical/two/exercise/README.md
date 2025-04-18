@@ -42,7 +42,26 @@ Once you have made these changes, you can then build the host file via the `make
 
 ## Device side
 
-There are now two kernels, _read_kernel.cpp_ and _write_kernel.cpp_, in the _kernels/dataflow_ directory. These are fairly complete, but the CB marshalling API calls need to be added.
+There are now two kernels, _read_kernel.cpp_ and _write_kernel.cpp_, in the _kernels/dataflow_ directory. These are fairly complete, but the CB marshalling API calls need to be added. There are four API calls that marshall control over the CB which are sketched below. The first two are called by the producer of data into the CB, and the second two by the consumer of data from the CB. Firstly, a certain number of pages are reserved in the CB by the producer via `cb_reserve_back`, this call will block until _number_pages_ is available and once this call has completed the producer can then work with these pages without concern around conflict. The second producer CB API call is `cb_push_back` which denotes that the producer has completed filling _number_pages_ CBs and these can then be consumed.
+
+```c++
+cb_reserve_back(cb_identifier, number_pages)
+cb_push_back(cb_identifier, number_pages)
+
+cb_wait_front(cb_identifier, number_pages)
+cb_pop_front(cb_identifier, number_pages)
+```
+
+The second two API calls are called by the consumer, where `cb_wait_front` will block and wait for _number_pages_ to have been pushed by the producer. Once the data in the CB has been fully consumed, then `cb_pop_front` frees these up and makes them available again to the producer to fill in these pages with other data.
+
+In addition to the marshalling and control, there are also two API calls highlighted below that handles the memory side. These can be used to retrieve the write pointer, `get_write_ptr`, on the producer and the read pointer, `get_read_ptr`, on the consumer. 
+
+```c++
+get_write_ptr(cb_identifier);
+get_read_ptr(cb_identifier);
+```
+
+Throughout all these API calls the CB identifier, _cb_identifier_ is an argument. Ultimately this is an integer from 0 to 31 (inclusive), however the Metalium framework defines constants _tt::CBIndex::c_0_ all the way up to 31 for the naming.
 
 ### Reader kernel updates
 
