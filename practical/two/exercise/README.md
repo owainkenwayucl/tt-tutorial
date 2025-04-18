@@ -63,8 +63,19 @@ get_read_ptr(cb_identifier);
 
 Throughout all these API calls the CB identifier, _cb_identifier_ is an argument. Ultimately this is an integer from 0 to 31 (inclusive), however the Metalium framework defines constants _tt::CBIndex::c_0_ all the way up to 31 for the naming.
 
-### Reader kernel updates
+### Read kernel updates
 
+The reader kernel, _read_kernel.cpp_ needs to be updated to reserve a page in the CB and then push this once results have been written to it:
+
+* Line 32: Using the `cb_reserve_back` API call allocate a single page in the CB
+* Line 45: Using the `cb_push_back` API call push this page in the CB to the consumer
+
+### Write kernel updates
+
+The writer kernel, _write_kernel.cpp_ needs to be updated to wait on a page in the CB from the producer (the read kernel) and then free this up once the data has been written to DDR:
+
+* Line 18: Using the `cb_wait_front` API call wait for a single page in the CB to be made available from the read kernel (producer)
+* Line 30: Now we have written the results back to DDR, using the `cb_pop_front` API free this page up so that is can be reused by the read kernel
 
 ## Run
 
