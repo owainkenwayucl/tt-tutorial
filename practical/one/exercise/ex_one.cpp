@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
     // Use descriptor configuration to allocate buffers in DRAM on the device
     std::shared_ptr<Buffer> src0_dram_buffer = CreateBuffer(dram_config);
     std::shared_ptr<Buffer> src1_dram_buffer = CreateBuffer(dram_config);
-    std::shared_ptr<Buffer> dst_dram_buffer = CreateBuffer(dram_config);
+    // TODO: Create buffer for the results similarly to the input data
 
     tt::tt_metal::InterleavedBufferConfig l1_config {
         .device= device,
@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
 
     // Write the src0 and src1 data to DRAM on the device, false means we will not block
     EnqueueWriteBuffer(cq, src0_dram_buffer, src0_data, false);
-    EnqueueWriteBuffer(cq, src1_dram_buffer, src1_data, false);
+    // TODO: Issue a write buffer for src1_dram_buffer too
 
     // Specify data movement kernel for launching on first RISC-VV baby core
     KernelHandle binary_reader_kernel_id = CreateKernel(
@@ -59,6 +59,7 @@ int main(int argc, char** argv) {
         core,
         DataMovementConfig{.processor = DataMovementProcessor::RISCV_0, .noc = NOC::RISCV_0_default});
 
+    // TODO: Replace the 0 with the results dram buffer address (e.g. results_dram_buffer->address())
     // Configure runtime kernel arguments
     SetRuntimeArgs(
         program,
@@ -66,7 +67,7 @@ int main(int argc, char** argv) {
         core,
         {src0_dram_buffer->address(),
          src1_dram_buffer->address(),
-         dst_dram_buffer->address(),
+         0,
          l1_buffer_1->address(),
          l1_buffer_2->address(),
          DATA_SIZE});
@@ -78,15 +79,21 @@ int main(int argc, char** argv) {
 
     // Allocate result data on host for results
     uint32_t * result_data=(uint32_t*) malloc(sizeof(uint32_t) * DATA_SIZE);
-    // Copy results back from device DRAM, true means will block for completion
-    EnqueueReadBuffer(cq, dst_dram_buffer, result_data, true);
+    // TODO: Issue the EnqueueReadBuffer call, which is similarl to EnqueueWriteBuffer 
+    // with the same type of arguments (command_queue, device buffer, host target data, blocking)
+    // this time set the blocking to be true to wait for the results
     // Check all results match expected value
+    int number_failures=0;
     for (int i=0;i<DATA_SIZE;i++) {
-        assert(result_data[i] == src0_data[i] + src1_data[i]);
+        if (result_data[i] != src0_data[i] + src1_data[i]) number_failures++;
     }
 
     CloseDevice(device);
 
-    printf("Completed successfully on the device, for %d elements\n", DATA_SIZE);
+    if (number_failures==0) {
+        printf("Completed successfully on the device, for %d elements\n", DATA_SIZE);
+    } else {
+        printf("Failure on the device, %d failes for %d elements\n", number_failures, DATA_SIZE);
+    }
 }
 

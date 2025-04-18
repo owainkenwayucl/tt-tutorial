@@ -24,8 +24,9 @@ void kernel_main() {
     // Read data from DRAM into L1 buffers
     noc_async_read(src0_dram_noc_addr, buffer_1_addr, bytes_data_size);
     noc_async_read_barrier();
-    noc_async_read(src1_dram_noc_addr, buffer_2_addr, bytes_data_size);
-    noc_async_read_barrier();
+
+    // TODO: Do the same noc_async_read for the src1_dram_noc_addr into buffer_2_addr
+    // don't forget the noc_async_read_barrier after this call
 
     for (uint32_t i=0;i<data_size;i++) {
         buffer_1[i] = buffer_1[i] + buffer_2[i];
