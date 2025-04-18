@@ -13,5 +13,5 @@ Once you go into this directory, type `make` and run the resulting _ex_two_ exec
 ```bash
 user@login01:~$ make
 user@login01:~$ ./ex_two
-Completed successfully on the device, with 65536 elements
+Completed successfully on the device, with 100 elements
 ```
