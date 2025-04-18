@@ -103,12 +103,16 @@ int main(int argc, char** argv) {
     // Copy results back from device DRAM, true means will block for completion
     EnqueueReadBuffer(cq, dst_dram_buffer, result_data, true);
     // Check all results match expected value
+    int number_failures=0;
     for (int i=0;i<DATA_SIZE;i++) {
-        assert(result_data[i] == src0_data[i] + src1_data[i]);
+        if (result_data[i] != src0_data[i] + src1_data[i]) number_failures++;
     }
 
     CloseDevice(device);
 
-    printf("Completed successfully on the device, for %d elements\n", DATA_SIZE);
+    if (number_failures==0) {
+        printf("Completed successfully on the device, with %d elements\n", DATA_SIZE);
+    } else {
+        printf("Failure on the device, %d fails with %d elements\n", number_failures, DATA_SIZE);
+    }
 }
-
