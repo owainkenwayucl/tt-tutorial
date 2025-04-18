@@ -33,9 +33,9 @@ As you can see, the host (and device) code builds, but when it launches it is no
 The host side of the code, in the _ex_two.cpp_ file is fairly complete, but there have been a few omissions that need addressing. These are marked as comments with _TODO_ before them.
 
 * Line 31: Create the buffer for the results to be written into, this will be very similar to the previous two calls
-* Line 53: Copy _src1_dram_buffer_ onto the device via the _EnqueueWriteBuffer_ call, you can copy how it is one the previous line (but ensure you set the buffer name to be _src1_dram_buffer_)
+* Line 53: Copy _src1_dram_buffer_ onto the device via the `EnqueueWriteBuffer` call, you can copy how it is one the previous line (but ensure you set the buffer name to be _src1_dram_buffer_)
 * Line 70: We need to pass the address of each buffer as runtime arguments to the kernel on the device. You need to replace the zero at this line with the address of your newly created results buffer (at line 31). For instance, if your results buffer is called _results_dram_buffer_ then this would be `results_dram_buffer->address()` .
-* Line 82: We need to issue a _EnqueueReadBuffer_ call to copy results data back from the device to the host. The arguments here are very similar to the _EnqueueWriteBuffer_, for instance `EnqueueReadBuffer(cq, results_dram_buffer, result_data, true)` . It's up to you here, you can either set _true_ for this call to block on the data transfer being undertaken, or alternatively set it to _false_ and then issue a `Finish(cq)` call to wait on completion of the command queue.
+* Line 82: We need to issue a `EnqueueReadBuffer` call to copy results data back from the device to the host. The arguments here are very similar to the `EnqueueWriteBuffer`, for instance `EnqueueReadBuffer(cq, results_dram_buffer, result_data, true)` . It's up to you here, you can either set _true_ for this call to block on the data transfer being undertaken, or alternatively set it to _false_ and then issue a `Finish(cq)` call to wait on completion of the command queue.
 
 Once you have made these changes, you can then build the host file via the `make` command. Remember, this just builds the host file (the device kernels are built on demand when the executable is launched).
 
