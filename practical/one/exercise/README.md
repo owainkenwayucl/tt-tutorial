@@ -23,7 +23,7 @@ Once you go into this directory, type `make` and run the resulting _ex_two_ exec
 ```bash
 user@login01:~$ make
 user@login01:~$ ./ex_two
-Failure on the device, 100 fails for 100 elements
+Failure on the device, 100 fails with 100 elements
 ```
 
 As you can see, the host (and device) code builds, but when it launches it is not undertaking the required calculations properly, which we are going to fix now.
@@ -52,5 +52,5 @@ Once you have made these changes, and already rebuilt the host executable via `m
 
 ```bash
 user@login01:~$ ./ex_two
-Completed successfully on the device, for 100 elements
+Completed successfully on the device, with 100 elements
 ```
