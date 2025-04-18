@@ -7,7 +7,7 @@ You have been provided with a visitor account on the RISC-V testbed which contai
 In order to login to the RISC-V testbed you should execute the following, where _[user-id]_ is the username that has been allocated to you. You should then enter the password when prompted. 
 
 ```bash
-user@login01:~$ ssh ssh -J [user-id]@gateway.epcc.ed.ac.uk riscv-login.epcc.ed.ac.uk
+user@login01:~$ ssh -J [user-id]@gateway.epcc.ed.ac.uk riscv-login.epcc.ed.ac.uk
 ```
 
 This will request your SSH key passphrase and the current 6-digit authentication code (TOTP) from your MFA token, which gets you access to gateway, and in addition to this you will then be asked your password for the riscv-login machine. For more details you can see [these detailed instructions](https://riscv.epcc.ed.ac.uk/documentation/getting_started/).
