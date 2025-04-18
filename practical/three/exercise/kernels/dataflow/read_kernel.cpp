@@ -30,7 +30,7 @@ void kernel_main() {
     for (uint32_t i=0;i<num_chunks;i++) {
         // Read data from DRAM into L1 buffers
         // TODO: Offset the DRAM reading index based upon the current chunk, this is by adding
-        // (i*bytes_per_chunk) to argument zero in the next two calls
+        // (i*bytes_per_chunk) to first argument in the next two calls
         noc_async_read(src0_dram_noc_addr, buffer_1_addr, bytes_per_chunk);
         noc_async_read(src1_dram_noc_addr, buffer_2_addr, bytes_per_chunk);
         noc_async_read_barrier();
