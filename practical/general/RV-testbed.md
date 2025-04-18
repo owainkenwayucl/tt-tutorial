@@ -1,42 +1,34 @@
 # Accessing Tenstorrent
 
-You have been provided with a visitor account on ARCHER2 for the duration of the tutorial. This has all the prerequisites installed and ready to be used. The username and password of your guest account will be provided to you by the tutorial team. 
+You have been provided with a visitor account on the RISC-V testbed which contains Tenstorrent accelerators. This has all the prerequisites installed and ready to be used. The username and password of your guest account will be provided to you by the tutorial team. 
 
-## Logging into ARCHER2
+## Logging into the RISC-V testbed
 
-In order to login to ARCHER2 you should execute the following, where _[user-id]_ is the username that has been allocated to you. You should then enter the password when prompted. 
+In order to login to the RISC-V testbed you should execute the following, where _[user-id]_ is the username that has been allocated to you. You should then enter the password when prompted. 
 
 ```bash
-user@login01:~$ ssh [user-id]@login.archer2.ac.uk
+user@login01:~$ ssh ssh -J [user-id]@gateway.epcc.ed.ac.uk riscv-login.epcc.ed.ac.uk
 ```
 
-For more details on how to access ARCHER2, for instance if you are on a Windows or Mac machine then you can visit the [connecting guide](https://docs.archer2.ac.uk/user-guide/connecting/) for more information, or ask one of the demonstrators who will be happy to help.
+This will request your SSH key passphrase and the current 6-digit authentication code (TOTP) from your MFA token, which gets you access to gateway, and in addition to this you will then be asked your password for the riscv-login machine. For more details you can see [these detailed instructions](https://riscv.epcc.ed.ac.uk/documentation/getting_started/).
 
-## Setting up your environment
+## Accessing the Tenstorrent machine
 
-Once you have connected you should then change into your _work_ directory because this is the filesystem visible to the compute nodes and the area that we will be working in, you can do this via , via issuing the following:
+Once you have connected to the RISC-V testbed login node you then need to SSH to the Tenstorrent node, via issuing the following:
 
 ```bash
-user@login01:~$ cd /work/d011/d011/$USER
+user@riscv-login:~$ ssh tenstorrent1
 ```
 
-We have preprepared a series of modules which will provide us with LLVM 16, xDSL version 0.12.1, and the correct Python version. You should therefore issue:
+The API is available via the module environment to set up all the required environment variables so that you can now compile and run applications on the Tenstorrent accelerator:
 
 ```bash
-user@login01:~$ module use /work/d011/shared/modules
-user@login01:~$ module load llvm
-user@login01:~$ module load xdsl
+user@tenstorrent1:~$ module load tt-metal/0.56
 ```
 
-This will set up all the required environment variables so that you can now execute LLVM binaries, link to LLVM libraries, and Python will find xDSL. 
-
->**Important**
-> These environment setup steps (changing to your work directory and loading the llvm and xdsl modules) should be done for each ssh ARCHER2 session.
-
-## Tutorial materials
-
-This GitHub repository has already been cloned into your _work_ directory on ARCHER2, so if you _ls_ you should see the _training-intro_ directory that you can cd into, for instance to go into the practical one directory:
+You can now clone this Github repository which contains the practical exercises that we will be using in this session:
 
 ```bash
-user@login01:~$ cd training-intro/practical/one
+user@tenstorrent1:~$ git clone https://github.com/RISCVtestbed/tt-tutorial.git
+user@tenstorrent1:~$ cd tt-tutorial/practical
 ```
