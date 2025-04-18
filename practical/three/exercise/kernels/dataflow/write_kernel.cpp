@@ -24,7 +24,7 @@ void kernel_main() {
         // Now we have the page grab the read address of this
         uint32_t l1_read_addr = get_read_ptr(cb_id_out0);
         // TODO: Write the recieved data to DDR, we need to offset this index by the current
-        // chunk, this is done by adding (i*bytes_per_chunk) to the zeroth argument in the 
+        // chunk, this is done by adding (i*bytes_per_chunk) to the first argument in the 
         // API call below
         noc_async_write(l1_read_addr, dst_noc_addr, bytes_per_chunk);
         noc_async_write_barrier();
