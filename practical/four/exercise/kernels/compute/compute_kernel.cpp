@@ -20,13 +20,15 @@ void MAIN {
         cb_wait_front(cb_in0, 1);
         cb_wait_front(cb_in1, 1);
 
-        // Aquire dst registers for compute core
-        tile_regs_acquire();
-        // Add the tiles via the matrix multiplication engine
-        // from page 0 in both CB and into segment 0 of dst registers
-        add_tiles(cb_in0, cb_in1, 0, 0, 0);
-        // Commit the dst registers so they can be consumed
-        tile_regs_commit();
+        // TODO: Aquire dst registers for compute core by tile_regs_acquire API call
+        
+        // TODO: Add the tiles via the matrix multiplication engine from page 0 
+        // in both CB and into segment 0 of dst registers by the add_tiles API
+        // call where  the two CBs are the first two arguments, and the page
+        // location provided as the next two arguments (as zero) and the location
+        // in the dst register provided as the last argument, suggest zero
+        
+        // TODO: Commit the dst registers so they can be consumed via tile_regs_commit API call        
 
         // Pop pages in the input CBs so these can be reused
         cb_pop_front(cb_in0, 1);
@@ -35,12 +37,13 @@ void MAIN {
         // Reserve a page in the output CB
         cb_reserve_back(cb_out0, 1);
 
-        // Wait for dst registers for packer RV core
-        tile_regs_wait();
-        // Pack from segement 0 in the dst register to the output CB
-        pack_tile(0, cb_out0);
-        // Release dst registers
-        tile_regs_release();
+        // TODO: Wait for dst registers for packer RV core via the tile_regs_wait API call
+        
+        // TODO: Pack from segement 0 in the dst register to the output CB via the
+        // pack_tile API call, with the dst register segment index (what was provided as the
+        // last argument in add_tiles) and the output CB index, cb_out0
+        
+        // TODO: Release dst registers via the tile_regs_release API call        
 
         // Make output tile available to consumer
         cb_push_back(cb_out0, 1);
