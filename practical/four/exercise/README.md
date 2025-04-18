@@ -39,13 +39,13 @@ There are four API calls that manage locks around the destination register. The 
 The structure of compute is illustrated below, where the math core aquires the dst tile registers via `tile_regs_acquire`, the matrix unit operation is then performed on two CBs as input, with the page indexes of each of these CBs provided as arguments three and four. Lastly, the segment in the _dst_ register to place results is also provided (there are 16 segments, each 2KB in size). Next the `tile_regs_commit` call releases the registers and denotes that these can be obtained by the packer.
 
 ```c++
-tile_regs_acquire()
-mm_op(cb_1_index, cb_2_index, cb_1_page, cb_2_page, dst_segment)
-tile_regs_commit()
+tile_regs_acquire();
+mm_op(cb_1_index, cb_2_index, cb_1_page, cb_2_page, dst_segment);
+tile_regs_commit();
 
-tile_regs_wait()
-pack_tile(dst_segment, target_cb)
-tile_regs_release()
+tile_regs_wait();
+pack_tile(dst_segment, target_cb);
+tile_regs_release();
 ```
 
 The last three lines in the snippet above will wait for tile registers on the packer core, once these are obtained the packer will then instruct the compute unit to pack the CB via the `pack_tile` API call, with the segment in the _dst_ register as the first argument (this should the same as provided to the _mm_op_ API call). Lastly, tile registers are released via `tile_regs_release`.
@@ -53,12 +53,12 @@ The last three lines in the snippet above will wait for tile registers on the pa
 In the above example `mm_op` represents the operation to run on the matrix unit, the most popular ones are below, with the full API available [here](https://docs.tenstorrent.com/tt-metal/latest/tt-metalium/tt_metal/apis/index.html). 
 
 ```c++
-add_tiles
-sub_tiles
-mul_tiles
-matmul_tiles
-transpose_wh_tile
-reduce_tile
+add_tiles(....);
+sub_tiles(....);
+mul_tiles(....);
+matmul_tiles(....);
+transpose_wh_tile(....);
+reduce_tile(....);
 ```
 
 ### Compute kernel updates
