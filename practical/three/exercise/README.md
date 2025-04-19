@@ -3,7 +3,7 @@
 In this practical we are going to move closer to using the compute unit to perform the calculation. However, the matrix and vector units work on tiles of a specific size, for instance, the input registers to the matrix unit are of 4KB in size. We will extend [practical two](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/two/exercise) to work in chunks, this decoupling of the overall size from the limits of the architecture (the compute register sizes and/or the available memory in L1) enables much larger problems to be handled. This is a fairly short practical as it is in preparation for the fourth practical where we will drive compute via the compute core.
 
 >**Having problems?**
-> As you go through this exercise if there is anything you are unsure about or are stuck on then you can look at the _sample_solutions_
+> As you go through this exercise if there is anything you are unsure about or are stuck on then you can look at the [sample solutions](../sample_solutions)
 
 ## Getting started
 
