@@ -14,6 +14,7 @@ We suggest the following flow for the materials contained in this repository
 | ------------- |:-------------:| :-------------:|
 | Welcome and overview      |  | Lecture |
 | The Tenstorrent Tensix architecture      | [here](https://github.com/RISCVtestbed/tt-tutorial/blob/main/lectures/Architecture%20overview.pdf) | Lecture |
+| Accessing Tenstorrent hardware via the RISC-V testbed      | [here](https://github.com/RISCVtestbed/tt-tutorial/blob/main/lectures/Accessing%20Tenstorrent.pdf) | Lecture |
 | Overview of TT Metalium SDK: part one | [here](https://github.com/RISCVtestbed/tt-tutorial/blob/main/lectures/SDK-data-movement.pdf) | Lecture |
 | Practical one: Compute on the RISC-V baby core | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/one) | Practical |
 | Practical two: Using Circular Buffers to communicate between RISC-V cores | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/two) | Practical |
