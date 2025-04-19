@@ -9,7 +9,7 @@ Learning objectives are:
 * To show how to drive the matrix engine and use this for undertaking arithmetic operations
 
 >**Having problems?**
-> As you go through this exercise if there is anything you are unsure about or are stuck on then you can look at the _sample_solutions_
+> As you go through this exercise if there is anything you are unsure about or are stuck on then you can look at the [sample solutions](../sample_solutions)
 
 ## Getting started
 
