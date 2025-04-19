@@ -15,8 +15,8 @@ We suggest the following flow for the materials contained in this repository
 | Welcome and overview      |  | Lecture |
 | The Tenstorrent Tensix architecture      | [here](https://github.com/RISCVtestbed/tt-tutorial/blob/main/lectures/Architecture%20overview.pdf) | Lecture |
 | Overview of TT Metalium SDK: part one | [here](https://github.com/RISCVtestbed/tt-tutorial/blob/main/lectures/SDK-data-movement.pdf) | Lecture |
-| Practical one | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/one) | Practical |
-| Practical two | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/two) | Practical |
+| Practical one: Compute on the RISC-V baby core | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/one) | Practical |
+| Practical two: Using Circular Buffers to communicate between RISC-V cores | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/two) | Practical |
 | Overview of TT Metalium SDK: SDK part two | [here](https://github.com/RISCVtestbed/tt-tutorial/blob/main/lectures/SDK-compute.pdf)| Lecture |
-| Practical three | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/three) | Practical |
-| Practical four | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/four) | Practical |
+| Practical three: Tiling input data into chunks | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/three) | Practical |
+| Practical four: Performing compute using the matrix unit | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/four) | Practical |
