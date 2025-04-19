@@ -4,7 +4,7 @@ This repository contains the materials for a practical introduction to using Ten
 
 This top level directory contains:
 * [lectures](lectures) which holds the PDF lecture material, and source powerpoints, for the course, providing an overview to the system architecture and SDK
-* [practicals](practicals) contains the practical exercise material along with instructions around how to log into the EPCC RISC-V testbed system and access Tenstorrent hardware
+* [practical](practical) contains the practical exercise material along with instructions around how to log into the EPCC RISC-V testbed system and access Tenstorrent hardware
 
 ## Tutorial flow
 
