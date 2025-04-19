@@ -24,17 +24,23 @@ void MAIN {
         // Aquire dst registers for compute core
         tile_regs_acquire();
 
-        // Copy the tile from zero page in cb_in0 into segment
-        // 0 of dst registers
-        copy_tile(cb_in0, 0, 0);
-        // Copy the tile from zero page in cb_in1 into segment
-        // 1 of dst registers
-        copy_tile(cb_in1, 0, 1);
+        // TODO: Copy the tile in the cb_in0 CB into a segment of the
+        // dst register, this is done via the copy_tile API call
+        // with the CB as the first argument, the CB's page (zero)
+        // as the second argument, and the third argument is the 
+        // dst regsiter segment (0 to 15 inclusing, 0 is suggested here)
+        
+        // TODO: Copy the tile in the cb_in1 CB into a segment of the
+        // dst register, this is done via the copy_tile API call
+        // with the CB as the first argument, the CB's page (zero)
+        // as the second argument, and the third argument is the 
+        // dst regsiter segment (0 to 15 inclusing, 1 is suggested here)
 
-        // Instruct the SFPU to add the tiles in segments
-        // zero and one in the dst register, the first 
-        // (0) dst register index is overwritten with results
-        add_binary_tile(0, 1);
+        // TODO: Direct the SFPU to add the tiles in dst register segments
+        // that the CBs were copied into in the above two calls. The API
+        // call is add_binary_tile, with the two source dst register segment
+        // indexes provided as arguments. Like all SFPU calls, results are
+        // written into the first dst register segment provided as an argument.        
 
         // Commit the dst registers so they can be consumed
         tile_regs_commit();
