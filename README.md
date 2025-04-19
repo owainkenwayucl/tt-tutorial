@@ -12,7 +12,7 @@ We suggest the following flow for the materials contained in this repository
 
 | Activity        | Type           | Link |
 | ------------- |:-------------:| :-------------:|
-| Welcome and overview     | Lecture |  | 
+| Welcome and overview     | Lecture | [here](https://github.com/RISCVtestbed/tt-tutorial/blob/main/lectures/Welcome%20and%20overview.pdf) | 
 | The Tenstorrent Tensix architecture      | Lecture | [here](https://github.com/RISCVtestbed/tt-tutorial/blob/main/lectures/Architecture%20overview.pdf) | 
 | Accessing Tenstorrent hardware via the RISC-V testbed      | Lecture | [here](https://github.com/RISCVtestbed/tt-tutorial/blob/main/lectures/Accessing%20Tenstorrent.pdf) | 
 | Overview of TT Metalium SDK: part one | Lecture | [here](https://github.com/RISCVtestbed/tt-tutorial/blob/main/lectures/SDK-data-movement.pdf) | 
