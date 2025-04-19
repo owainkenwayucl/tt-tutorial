@@ -9,7 +9,7 @@ Learning objectives are:
 * To show how the host and Tenstorrent device interact with each other
 
 >**Having problems?**
-> As you go through this exercise if there is anything you are unsure about or are stuck on then you can look at the _sample_solutions_
+> As you go through this exercise if there is anything you are unsure about or are stuck on then you can look at the [sample_solutions](../sample_solutions)
 
 ## Getting started
 
