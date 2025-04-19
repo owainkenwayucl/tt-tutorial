@@ -20,4 +20,5 @@ We suggest the following flow for the materials contained in this repository
 | Practical two: Using Circular Buffers to communicate between RISC-V cores | Practical | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/two) | 
 | Overview of TT Metalium SDK: SDK part two | Lecture | [here](https://github.com/RISCVtestbed/tt-tutorial/blob/main/lectures/SDK-compute.pdf)| 
 | Practical three: Tiling input data into chunks | Practical | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/three) | 
-| Practical four: Performing compute using the matrix unit | Practical | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/four) | 
+| Practical four: Performing compute using the matrix unit (FPU) | Practical | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/four) | 
+| Practical five: Performing compute using the vector unit (SFPU)| Practical | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/five) | 
