@@ -1,6 +1,6 @@
 # Exercise Five: Sample solutions
 
-In this practical we leverage the vector unit (SFPU) to perform the calculations instead of the matrix engine that was used in [practical four](../../four/sample_solutions) 
+In this practical we leverage the vector unit (SFPU) to perform the calculations instead of the matrix engine that was used in [practical four](../../four/sample_solutions).
 
 ## Building and running
 
