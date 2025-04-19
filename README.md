@@ -10,13 +10,13 @@ This top level directory contains:
 
 We suggest the following flow for the materials contained in this repository
 
-| Activity        | Link           |
-| ------------- |:-------------:|
-| Welcome and overview      |  |
-| The Tenstorrent Tensix architecture      | [here](https://github.com/RISCVtestbed/tt-tutorial/blob/main/lectures/Architecture%20overview.pdf) |
-| SDK part one | [here](https://github.com/RISCVtestbed/tt-tutorial/blob/main/lectures/SDK-data-movement.pdf) |
-| Practical one | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/one) |
-| Practical two | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/two) |
-| SDK part two | [here](https://github.com/RISCVtestbed/tt-tutorial/blob/main/lectures/SDK-compute.pdf)|
-| Practical three | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/three) |
-| Practical four | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/four) |
+| Activity        | Link           | Type |
+| ------------- |:-------------:| :-------------:|
+| Welcome and overview      |  | Lecture |
+| The Tenstorrent Tensix architecture      | [here](https://github.com/RISCVtestbed/tt-tutorial/blob/main/lectures/Architecture%20overview.pdf) | Lecture |
+| Overview of TT Metalium SDK: part one | [here](https://github.com/RISCVtestbed/tt-tutorial/blob/main/lectures/SDK-data-movement.pdf) | Lecture |
+| Practical one | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/one) | Practical |
+| Practical two | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/two) | Practical |
+| Overview of TT Metalium SDK: SDK part two | [here](https://github.com/RISCVtestbed/tt-tutorial/blob/main/lectures/SDK-compute.pdf)| Lecture |
+| Practical three | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/three) | Practical |
+| Practical four | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/four) | Practical |
