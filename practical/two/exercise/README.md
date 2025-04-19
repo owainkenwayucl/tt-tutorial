@@ -11,7 +11,7 @@ Learning objectives are:
 * To explore the CB API on both the host and device to show how this is used
 
 >**Having problems?**
-> As you go through this exercise if there is anything you are unsure about or are stuck on then you can look at the _sample_solutions_
+> As you go through this exercise if there is anything you are unsure about or are stuck on then you can look at the [sample solutions](../sample_solutions)
 
 ## Getting started
 
