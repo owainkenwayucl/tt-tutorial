@@ -1,4 +1,4 @@
-XX=clang++-17
+CXX=clang++-17
 
 INCLUDES=-I${TT_METAL_HOME}/tt_metal/api -I${TT_METAL_HOME}/tt_metal/api/tt-metalium -I${TT_METAL_HOME}/build_Release/include -I${TT_METAL_HOME}/build_Release/include/metalium-thirdparty -I${TT_METAL_HOME}/build_Release/include/umd/device/device/api -I${TT_METAL_HOME}/tt_metal/hostdevcommon/api/ -I${TT_METAL_HOME}/tt_metal/third_party/tracy/public
 
