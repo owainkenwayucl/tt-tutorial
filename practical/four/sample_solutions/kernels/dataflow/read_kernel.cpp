@@ -1,6 +1,7 @@
 #include "dataflow_api.h"
 
-#define DATA_TYPE_BYTES 4
+// Inputs are int8
+#define DATA_TYPE_BYTES 1
 
 void kernel_main() {
     // Load in runtime arguments provided by the host

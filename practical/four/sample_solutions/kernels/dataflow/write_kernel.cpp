@@ -1,5 +1,6 @@
 #include "dataflow_api.h"
 
+// Output is int32
 #define DATA_TYPE_BYTES 4
 
 void kernel_main() {
