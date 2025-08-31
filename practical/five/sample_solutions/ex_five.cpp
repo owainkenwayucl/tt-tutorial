@@ -2,7 +2,7 @@
 #include "device.hpp"
 
 #define DATA_SIZE 65536
-#define CHUNK_SIZE 256
+#define CHUNK_SIZE 1024
 
 using namespace tt;
 using namespace tt::tt_metal;
@@ -29,28 +29,32 @@ int main(int argc, char** argv) {
     constexpr uint32_t l1_tile_size = 4 * CHUNK_SIZE;
     // Create L1 circular buffers to communicate between RV cores
     CircularBufferConfig cb_src0_config =
-        CircularBufferConfig(CHUNK_SIZE, {{CBIndex::c_0, tt::DataFormat::UInt32}})
-            .set_page_size(CBIndex::c_0, CHUNK_SIZE);
+        CircularBufferConfig(l1_tile_size, {{CBIndex::c_0, tt::DataFormat::Int32}})
+            .set_page_size(CBIndex::c_0, l1_tile_size);
     tt_metal::CreateCircularBuffer(program, core, cb_src0_config);
 
     CircularBufferConfig cb_src1_config =
-        CircularBufferConfig(CHUNK_SIZE, {{CBIndex::c_1, tt::DataFormat::UInt32}})
-            .set_page_size(CBIndex::c_1, CHUNK_SIZE);
+        CircularBufferConfig(l1_tile_size, {{CBIndex::c_1, tt::DataFormat::Int32}})
+            .set_page_size(CBIndex::c_1, l1_tile_size);
     tt_metal::CreateCircularBuffer(program, core, cb_src1_config);
 
     CircularBufferConfig cb_src2_config =
-        CircularBufferConfig(CHUNK_SIZE, {{CBIndex::c_2, tt::DataFormat::UInt32}})
-            .set_page_size(CBIndex::c_2, CHUNK_SIZE);
+        CircularBufferConfig(l1_tile_size, {{CBIndex::c_2, tt::DataFormat::Int32}})
+            .set_page_size(CBIndex::c_2, l1_tile_size);
     tt_metal::CreateCircularBuffer(program, core, cb_src2_config);
 
     // Allocate input data and fill it with values (each will be added together)
-    uint32_t * src0_data=(uint32_t*) malloc(sizeof(uint32_t) * DATA_SIZE);
-    uint32_t * src1_data=(uint32_t*) malloc(sizeof(uint32_t) * DATA_SIZE);
+    int32_t * src0_data=(int32_t*) malloc(sizeof(int32_t) * DATA_SIZE);
+    int32_t * src1_data=(int32_t*) malloc(sizeof(int32_t) * DATA_SIZE);
 
     for (int i=0;i<DATA_SIZE;i++) {
         src0_data[i]=i;
         src1_data[i]=DATA_SIZE-i;
     }
+
+    // Intentionally set incorrect values in the result buffer, this ensures that
+    // previously correct results are not read later (if the kernel did not run)
+    EnqueueWriteBuffer(cq, dst_dram_buffer, src0_data, true);
 
     // Write the src0 and src1 data to DRAM on the device, false means we will not block
     EnqueueWriteBuffer(cq, src0_dram_buffer, src0_data, false);
@@ -116,7 +120,7 @@ int main(int argc, char** argv) {
 
     // Allocate result data on host for results
     // Copy results back from device DRAM, true means will block for completion
-    uint32_t * result_data=(uint32_t*) malloc(sizeof(uint32_t) * DATA_SIZE);
+    int32_t * result_data=(int32_t*) malloc(sizeof(int32_t) * DATA_SIZE);
     EnqueueReadBuffer(cq, dst_dram_buffer, result_data, true);
 
     int number_failures=0;
