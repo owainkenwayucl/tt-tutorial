@@ -25,7 +25,7 @@ user@login01:~$ ./ex_five
 Failure on the device, 65536 fails with 65536 elements
 ```
 
-As you can see a little bit like practical four, the host (and device) code builds, but when it launches it is not undertaking the required calculations properly. This is because the compute side of things, whilst it handles the CBs properly, requires you to add code to drive the vector unit (SFPU).
+As you can see, similarly to practical four, the host (and device) code builds, but when it launches it is not undertaking the required calculations properly. This is because the compute side of things, whilst it handles the CBs properly, requires you to add code to drive the vector unit (SFPU).
 
 ## Device side
 
@@ -45,15 +45,23 @@ pack_tile(dst_segment, target_cb);
 tile_regs_release();
 ```
 
-The last three lines in the above code are exactly the same as when using the matrix unit, as results are in _dst_ and need to be copied out. The first five lines of code illustrate the difference here, and as can be seen the `copy_tile` API is used to copy tiles, or chunks, of data from two CBs (_source_1_cb_ and _source_2_cb_) into different segments of the _dst_ register. The required SFPU operation  is then issued, _sfpu_op_, in the above code with these two _dst_ register indexes as arguments. All SFPU operations overwrite the first source segment, so in the above example results are written to segment zero.
+The last three lines in the above code are exactly the same as when using the matrix unit, as results are in _dst_ and need to be copied out. The first five lines of code illustrate the difference here, and as can be seen the `copy_tile` API is used to copy tiles, or chunks, of data from two CBs (_source_1_cb_ and _source_2_cb_) into different segments of the _dst_ register. The required SFPU operation is then issued, _sfpu_op_, in the above code with these two _dst_ register indexes as arguments. All SFPU operations overwrite the first source segment, so in the above example results are written to segment zero.
 
 In the above example `sfpu_op` represents the operation to run on the vector unit, some of the most popular ones are below, with the full API available [here](https://docs.tenstorrent.com/tt-metal/latest/tt-metalium/tt_metal/apis/index.html). 
 
 ```c++
 // Maths operations
 add_binary_tile(....);
+add_int32_tile(....);
+add_uint32_tile(....);
+add_uint16_tile(....);
 sub_binary_tile(....);
+sub_int32_tile(....);
+sub_uint32_tile(....);
+sub_uint16_tile(....);
 mul_binary_tile(....);
+mul_int32_tile(....);
+mul_uint32_tile(....);
 sqrt_tile(....);
 square_tile(....);
 sin_tile(....);
@@ -79,7 +87,7 @@ Based on the above, the missing functionality in _compute_kernel.cpp_ should be 
 
 ## Host code
 
-This has remained entirely unchanged from [practical four](../../four/exercise). This is fairly common when working with this technology, and indeed accelerators more generally, that we reach a point where the overall structure and host code are fairly static but we are then working with the compute or data movement kernels to tune and optimise them.
+This has remained fairly unchanged from [practical four](../../four/exercise), where the overall structure and host code are fairly static but we are then working with the compute or data movement kernels to tune and optimise them. The major difference here is that the vector unit can compute with int32, rather than limiting ourselves to int8 in [practical four](../../four/exercise).
 
 ## Rerun
 
