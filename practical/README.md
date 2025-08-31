@@ -8,4 +8,4 @@ This directory contains the practicals associated with this tutorial which build
 * [Exercise four](four/exercise) modifies the code to use the matrix unit in the FPU to perform the addition calculation on a tile by tile basis, rather than the RISC-V baby cores doing this.
 * [Exercise five](five/exercise) modifies the code to use the vector unit, SFPU, to perform the addition calculation on a tile by tile basis, rather than the matrix engine in the previous practical.
 
-All practicals contain sample solutions, are intended to be compiled and run on EPCC's RISC-V testbed (access and login instructions [here](general/RV-testbed.md)) and leverage version 0.56 of the Metalium SDK.
+All practicals contain sample solutions, are intended to be compiled and run on EPCC's RISC-V testbed (access and login instructions [here](general/RV-testbed.md)) and leverage version 0.62.2 of the Metalium SDK.
