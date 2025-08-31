@@ -2,7 +2,7 @@
 #include "device.hpp"
 
 #define DATA_SIZE 65536
-#define CHUNK_SIZE 256
+#define CHUNK_SIZE 1024
 
 using namespace tt;
 using namespace tt::tt_metal;
@@ -16,40 +16,47 @@ int main(int argc, char** argv) {
     Program program = CreateProgram();
     constexpr CoreCoord core = {0, 0};
 
-    // Create descriptor of DRAM allocation
-    constexpr uint32_t ddr_tile_size = 4 * DATA_SIZE;
-    InterleavedBufferConfig dram_config{
-        .device = device, .size = ddr_tile_size, .page_size = ddr_tile_size, .buffer_type = BufferType::DRAM};
+    // Create descriptor of DRAM allocation 
+    // Inputs in DRAM are int8
+    constexpr uint32_t in_ddr_tile_size = 1 * DATA_SIZE;
+    InterleavedBufferConfig in_dram_config{
+        .device = device, .size = in_ddr_tile_size, .page_size = in_ddr_tile_size, .buffer_type = BufferType::DRAM};
+    // Outputs in DRAM are int32
+    constexpr uint32_t out_ddr_tile_size = 4 * DATA_SIZE;
+    InterleavedBufferConfig out_dram_config{
+        .device = device, .size = out_ddr_tile_size, .page_size = out_ddr_tile_size, .buffer_type = BufferType::DRAM};
 
     // Use descriptor configuration to allocate buffers in DRAM on the device
-    std::shared_ptr<Buffer> src0_dram_buffer = CreateBuffer(dram_config);
-    std::shared_ptr<Buffer> src1_dram_buffer = CreateBuffer(dram_config);
-    std::shared_ptr<Buffer> dst_dram_buffer = CreateBuffer(dram_config);
+    std::shared_ptr<Buffer> src0_dram_buffer = CreateBuffer(in_dram_config);
+    std::shared_ptr<Buffer> src1_dram_buffer = CreateBuffer(in_dram_config);
+    std::shared_ptr<Buffer> dst_dram_buffer = CreateBuffer(out_dram_config);
 
-    constexpr uint32_t l1_tile_size = 4 * CHUNK_SIZE;
+    constexpr uint32_t l1_tile_size = 1 * CHUNK_SIZE;
     // Create L1 circular buffers to communicate between RV cores
+    // The first two are int8 as these are used as inputs to the FPU
     CircularBufferConfig cb_src0_config =
-        CircularBufferConfig(CHUNK_SIZE, {{CBIndex::c_0, tt::DataFormat::UInt32}})
-            .set_page_size(CBIndex::c_0, CHUNK_SIZE);
+        CircularBufferConfig(l1_tile_size, {{CBIndex::c_0, tt::DataFormat::Int8}})
+            .set_page_size(CBIndex::c_0, l1_tile_size);
     tt_metal::CreateCircularBuffer(program, core, cb_src0_config);
 
     CircularBufferConfig cb_src1_config =
-        CircularBufferConfig(CHUNK_SIZE, {{CBIndex::c_1, tt::DataFormat::UInt32}})
-            .set_page_size(CBIndex::c_1, CHUNK_SIZE);
+        CircularBufferConfig(l1_tile_size, {{CBIndex::c_1, tt::DataFormat::Int8}})
+            .set_page_size(CBIndex::c_1, l1_tile_size);
     tt_metal::CreateCircularBuffer(program, core, cb_src1_config);
 
+    // Third CB is int32 as this is the output of the FPU
     CircularBufferConfig cb_src2_config =
-        CircularBufferConfig(CHUNK_SIZE, {{CBIndex::c_2, tt::DataFormat::UInt32}})
-            .set_page_size(CBIndex::c_2, CHUNK_SIZE);
+        CircularBufferConfig(l1_tile_size*4, {{CBIndex::c_2, tt::DataFormat::Int32}})
+            .set_page_size(CBIndex::c_2, l1_tile_size*4);
     tt_metal::CreateCircularBuffer(program, core, cb_src2_config);
 
     // Allocate input data and fill it with values (each will be added together)
-    uint32_t * src0_data=(uint32_t*) malloc(sizeof(uint32_t) * DATA_SIZE);
-    uint32_t * src1_data=(uint32_t*) malloc(sizeof(uint32_t) * DATA_SIZE);
+    int8_t * src0_data=(int8_t*) malloc(sizeof(int8_t) * DATA_SIZE);
+    int8_t * src1_data=(int8_t*) malloc(sizeof(int8_t) * DATA_SIZE);
 
     for (int i=0;i<DATA_SIZE;i++) {
-        src0_data[i]=i;
-        src1_data[i]=DATA_SIZE-i;
+        src0_data[i]=i % 128;
+        src1_data[i]=(DATA_SIZE-i) % 128;
     }
 
     // Write the src0 and src1 data to DRAM on the device, false means we will not block
@@ -116,7 +123,7 @@ int main(int argc, char** argv) {
 
     // Allocate result data on host for results
     // Copy results back from device DRAM, true means will block for completion
-    uint32_t * result_data=(uint32_t*) malloc(sizeof(uint32_t) * DATA_SIZE);
+    int32_t * result_data=(int32_t*) malloc(sizeof(int32_t) * DATA_SIZE);
     EnqueueReadBuffer(cq, dst_dram_buffer, result_data, true);
 
     int number_failures=0;
