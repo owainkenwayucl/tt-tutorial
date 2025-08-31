@@ -43,6 +43,8 @@ tile_regs_acquire();
 mm_op(cb_1_index, cb_2_index, cb_1_page, cb_2_page, dst_segment);
 tile_regs_commit();
 
+....
+
 tile_regs_wait();
 pack_tile(dst_segment, target_cb);
 tile_regs_release();
@@ -74,7 +76,7 @@ Based on the above, the missing functionality in _compute_kernel.cpp_ should be 
 
 ## Host code
 
-The host code is complete, but it's worth having a look at the differences here. We no longer create the L1 buffers because, instead, we are creating three CBs (line 30 to 44 in _ex_four.cpp_) and the first data movement (in) core will read directly into these from DDR and then push to make them available to the compute core. You can also see between lines 92 and 110 the creation and configuration of the compute kernel. This is illustrated in the code snippet below, where setting the runtime arguments is the same as before, however creation of the kernel is different as a _ComputeConfig_ must be provided which configures the compute unit.
+The host code is complete, but it's worth having a look at the differences here. We no longer create the L1 buffers because, instead, we are creating three CBs (line 34 to 51 in _ex_four.cpp_) and the first data movement (in) core will read directly into these from DDR and then push to make them available to the compute core. You can also see between lines 99 and 117 the creation and configuration of the compute kernel. This is illustrated in the code snippet below, where setting the runtime arguments is the same as before, however creation of the kernel is different as a _ComputeConfig_ must be provided which configures the compute unit.
 
 ```c++
 // Compute kernel creation
