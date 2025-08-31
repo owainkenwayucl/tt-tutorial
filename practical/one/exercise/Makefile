@@ -8,5 +8,5 @@ LINKER=clang++-17
 LFLAGS=-rdynamic -L${TT_METAL_HOME}/build_Release/lib -ltt_metal -ldl -lstdc++fs -pthread -lyaml-cpp -lm -lc++ -ldevice
  
 all:
-    ${CXX} ${CFLAGS} -c ex_one.cpp
-    ${LINKER} ex_one.o -o ex_one ${LFLAGS}
+	${CXX} ${CFLAGS} -c ex_one.cpp
+	${LINKER} ex_one.o -o ex_one ${LFLAGS}
