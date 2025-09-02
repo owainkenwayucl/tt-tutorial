@@ -22,3 +22,4 @@ We suggest the following flow for the materials contained in this repository
 | Practical three: Tiling processing of data into chunks | Practical | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/three/exercise) | 
 | Practical four: Performing compute using the matrix unit (FPU) | Practical | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/four/exercise) | 
 | Practical five: Performing compute using the vector unit (SFPU)| Practical | [here](https://github.com/RISCVtestbed/tt-tutorial/tree/main/practical/five/exercise) | 
+| Conclusions     | Lecture | [here](https://github.com/RISCVtestbed/tt-tutorial/blob/main/lectures/Conclusions.pdf) | 
