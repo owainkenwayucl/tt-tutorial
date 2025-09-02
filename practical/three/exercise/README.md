@@ -36,7 +36,7 @@ The reader kernel, _read_kernel.cpp_ needs to be updated:
 The reader kernel, _read_kernel.cpp_ needs to be updated:
 
 * Line 8: Define the variable _chunk_size_ as the runtime argument at index two
-* Line 29: The first argument provided to the `noc_async_write` call is the DDR address, that needs to be incremented based upon the current chunk by adding the address _(i*bytes_per_chunk)_ to this.
+* Line 29: The second argument provided to the `noc_async_write` call is the DDR address, that needs to be incremented based upon the current chunk by adding the address _(i*bytes_per_chunk)_ to this.
 
 ## Run
 
